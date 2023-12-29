@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+
+<div class="w-full h-[550px] text-white">
+    <div class="w-full h-full">
+      <div class="absolute w-full h-[550px] bg-gradient-to-r from-black"></div>
+
+      <img
+        class="w-full h-full object-cover"
+        src="https://image.tmdb.org/t/p/original//sRLC052ieEzkQs9dEtPMfFxYkej.jpg"
+        alt="imagen fondo"
+      />
+
+      <div class="absolute w-full top-[20%] p-4 md:p-8">
+        
+        <h1 class="text-3xl md:text-5xl font-bold">Rebel Moon - Part One: A Child of Fire</h1>
+        <div class="my-4">
+          <button class="border bg-gray-300 text-black border-gray-300 py-2 px-5">
+            Play
+          </button>
+          <button class="border text-white border-gray-300 py-2 px-5 ml-4">
+            Watch Later
+          </button>
+        </div>
+        
+        <p class="text-gray-400 text-sm">
+            Released: 
+            2023-12-15
+        </p>
+        <p class="w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200">
+            When a peaceful colony on the edge of the galaxy finds itself threatened 
+            by the armies of the tyrannical Regent Balisarius, they dispatch Kora, a youn...
+        </p>
+      </div>
+    </div>
+</div>
+
+<ng-container *ngFor="let genre of genres.genres">
+    <h2 class="text-white font-bold md:text-xl p-4">{{genre.name}}</h2>
+        <div class="relative flex items-center group">
+    
+            <div
+              class="w-full h-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide relative"
+            >
+                <app-movie *ngFor="let movie of movies" [movie]="movie"></app-movie>
+                
+            </div>
+    
+        </div>
+</ng-container>
