@@ -7,8 +7,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./movie.component.scss']
 })
 export class MovieComponent {
-  title = 'prueba';
-  @Input() movie!: Record<any,any>
 
   constructor(
     private readonly router:Router
@@ -16,7 +14,5 @@ export class MovieComponent {
 
   }
 
-  gotodetails() {
-    this.router.navigateByUrl('/detalle');
-  }
+  
 }
