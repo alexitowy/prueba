@@ -21,4 +21,24 @@ export class MoviesService {
   getTrendingMovies (): Observable<Movies> {
     return this.http.get<Movies>(`${this.baseURL}/trending/movie/week?api_key=${this.apikey}`);
   }
+
+  getTopRatedMovies (): Observable<Movies> {
+    return this.http.get<Movies>(`${this.baseURL}/movie/top_rated?api_key=${this.apikey}`);
+  }
+
+  getActionMovies (): Observable<Movies> {
+    return this.http.get<Movies>(`${this.baseURL}/discover/movie?api_key=${this.apikey}&with_genres=28`);
+  }
+
+  getComedyMovies (): Observable<Movies> {
+    return this.http.get<Movies>(`${this.baseURL}/discover/movie?api_key=${this.apikey}&with_genres=35`);
+  }
+
+  getScienceFictionMovies (): Observable<Movies> {
+    return this.http.get<Movies>(`${this.baseURL}/discover/movie?api_key=${this.apikey}&with_genres=878`);
+  }
+
+  getMovieDetails (id: any): Observable<Movies> {
+    return this.http.get<Movies>(`${this.baseURL}/movie/${id}?api_key=${this.apikey}`)
+  }
 }
