@@ -1,12 +1,34 @@
-<div class="flex items-center justify-between p-4 z-[100] w-full absolute">
+<div
+  class="flex items-center justify-between p-4 z-[100] w-full absolute bg-black"
+>
   <h1 class="text-red-600 text-4xl font-bold cursor-pointer">NETFLIX</h1>
 
-  <div>
-    <button
-      class="bg-red-600 px-6 py-2 rounded cursor-pointer text-white"
-      [routerLink]="['']"
+  <div class="flex items-center">
+    <a
+      routerLink="/"
+      class="bg-red-600 px-6 py-2 rounded cursor-pointer ml-4 text-white hover:text-black transition duration-300"
     >
       Inicio
+    </a>
+
+    <!-- Agrega más enlaces según sea necesario para tu aplicación -->
+
+    <!-- Ejemplo de botón para perfil -->
+    <button class="ml-4 p-2 bg-transparent border border-white rounded-full">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        class="h-6 w-6 text-white"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 14l9-5-9-5-9 5 9 5z"
+        ></path>
+      </svg>
     </button>
   </div>
 </div>

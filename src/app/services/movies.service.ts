@@ -39,6 +39,6 @@ export class MoviesService {
   }
 
   getMovieDetails (id: any): Observable<Movies> {
-    return this.http.get<Movies>(`${this.baseURL}/movie/${id}?api_key=${this.apikey}`)
+    return this.http.get<Movies>(`${this.baseURL}/movie/${id}?language=es-ES&api_key=${this.apikey}`)
   }
 }

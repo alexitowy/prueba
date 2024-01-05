@@ -8,12 +8,14 @@ import { MoviesService } from 'src/app/services/movies.service';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent implements OnInit{
+  
   getMovieDetailResult?: any;
 
   constructor (private moviesService: MoviesService, private router: ActivatedRoute) { }
 
   ngOnInit(): void {
     let getParamId = this.router.snapshot.paramMap.get('id');
+    
     this.getMovie(getParamId);
   }
 
