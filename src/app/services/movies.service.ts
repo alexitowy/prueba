@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-
 export class MoviesService {
   private baseURL = 'https://api.themoviedb.org/3';
   private apikey = '4bfd3924cef3ab952c5dcea6eb59f58d';
@@ -18,27 +17,46 @@ export class MoviesService {
 
   constructor(private http: HttpClient) {}
 
-  getTrendingMovies (): Observable<Movies> {
-    return this.http.get<Movies>(`${this.baseURL}/trending/movie/week?api_key=${this.apikey}`);
+  getTrendingMovies(): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${this.baseURL}/trending/movie/week?api_key=${this.apikey}`
+    );
   }
 
-  getTopRatedMovies (): Observable<Movies> {
-    return this.http.get<Movies>(`${this.baseURL}/movie/top_rated?api_key=${this.apikey}`);
+  getTopRatedMovies(): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${this.baseURL}/movie/top_rated?api_key=${this.apikey}`
+    );
   }
 
-  getActionMovies (): Observable<Movies> {
-    return this.http.get<Movies>(`${this.baseURL}/discover/movie?api_key=${this.apikey}&with_genres=28`);
+  getActionMovies(): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${this.baseURL}/discover/movie?api_key=${this.apikey}&with_genres=28`
+    );
   }
 
-  getComedyMovies (): Observable<Movies> {
-    return this.http.get<Movies>(`${this.baseURL}/discover/movie?api_key=${this.apikey}&with_genres=35`);
+  getComedyMovies(): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${this.baseURL}/discover/movie?api_key=${this.apikey}&with_genres=35`
+    );
   }
 
-  getScienceFictionMovies (): Observable<Movies> {
-    return this.http.get<Movies>(`${this.baseURL}/discover/movie?api_key=${this.apikey}&with_genres=878`);
+  getScienceFictionMovies(): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${this.baseURL}/discover/movie?api_key=${this.apikey}&with_genres=878`
+    );
   }
 
-  getMovieDetails (id: any): Observable<Movies> {
-    return this.http.get<Movies>(`${this.baseURL}/movie/${id}?language=es-ES&api_key=${this.apikey}`)
+  getSearchMovie(id: any): Observable<Movies> {
+    console.log(id, 'movie#');
+    return this.http.get<Movies>(
+      `${this.baseURL}/search/movie?api_key=${this.apikey}&query=${id.movieName}&language=es-ES`
+    );
+  }
+
+  getMovieDetails(id: any): Observable<Movies> {
+    return this.http.get<Movies>(
+      `${this.baseURL}/movie/${id}?language=es-ES&api_key=${this.apikey}`
+    );
   }
 }

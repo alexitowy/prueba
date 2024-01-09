@@ -10,22 +10,16 @@ import { HomeComponent } from './pages/home/home.component';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    DetailsComponent
-  ],
+  declarations: [AppComponent, HomeComponent, DetailsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  exports: [
-    HomeComponent
-  ],
+  exports: [HomeComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
