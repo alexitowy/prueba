@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MoviesService } from 'src/app/services/movies.service';
+import { Search } from '../../services/services.service';
 
 @Component({
   selector: 'app-search',
@@ -8,9 +9,18 @@ import { MoviesService } from 'src/app/services/movies.service';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  constructor(private moviesService: MoviesService) {}
+  constructor(
+    private moviesService: MoviesService,
+    private searchService: Search
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.searchService.currentSearchForm.subscribe((searchForm) => {
+      if (searchForm) {
+        this.searchForm.patchValue(searchForm);
+      }
+    });
+  }
 
   searchResult: any;
   searchForm = new FormGroup({

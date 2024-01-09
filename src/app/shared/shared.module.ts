@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MovieComponent } from './components/movie/movie.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { SearchComponent } from './components/search/search/search.component';
+import { SearchComponent } from './components/search/search.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
