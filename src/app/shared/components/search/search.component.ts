@@ -1,3 +1,4 @@
+// search.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MoviesService } from 'src/app/services/movies.service';
@@ -28,14 +29,18 @@ export class SearchComponent implements OnInit {
   });
 
   onSubmit() {
-    console.log(this.searchForm.value, 'searchform#');
-    this.moviesService
-      .getSearchMovie(this.searchForm.value)
-      .subscribe((result) => {
-        /* TODO: REFACTORING AND CONSOLE.LOG */
-        console.log(result, 'searchmovie##');
-        this.searchResult = result.results;
-        this.searchForm.reset();
-      });
+    const movieName = this.searchForm.get('movieName')?.value;
+
+    if (movieName !== null && movieName !== undefined) {
+      console.log(movieName, 'searchform#');
+      this.moviesService
+        .getSearchMovie(movieName as string)
+        .subscribe((result) => {
+          /* TODO: REFACTORING AND CONSOLE.LOG */
+          console.log(result, 'searchmovie##');
+          this.searchResult = result.results;
+          this.searchForm.reset();
+        });
+    }
   }
 }

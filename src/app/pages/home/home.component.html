@@ -1,16 +1,30 @@
-<app-navbar></app-navbar>
-
-<div class="w-full h-[550px] text-white">
-  <div class="w-full h-full">
-    <div class="absolute w-full h-[550px] bg-gradient-to-r from-black"></div>
-
+<!-- Llamado del navbar component -->
+<nav
+  [ngClass]="{
+    'bg-transparent': isNavbarTransparent,
+    'bg-black': !isNavbarTransparent
+  }"
+  id="navbar"
+  class="fixed w-full z-10 transition-all duration-300"
+>
+  <div
+    class="absolute w-full h-full bottom-0 bg-gradient-to-t from-transparent to-black z-0"
+  ></div>
+  <app-navbar></app-navbar>
+</nav>
+<!-- Estilo imagen de fondo -->
+<div class="w-full h-[1200px] text-white relative">
+  <div class="w-full h-full z-1">
     <img
       class="w-full h-full object-cover"
       src="https://image.tmdb.org/t/p/original//sRLC052ieEzkQs9dEtPMfFxYkej.jpg"
       alt="imagen fondo"
     />
+    <div
+      class="absolute w-full h-full bottom-0 bg-gradient-to-b from-transparent to-black z-0"
+    ></div>
 
-    <div class="absolute w-full top-[20%] p-4 md:p-8">
+    <div class="absolute w-full top-[50%] p-4 md:p-8 md:ml-16">
       <h1 class="text-3xl md:text-5xl font-bold">
         Rebel Moon - Part One: A Child of Fire
       </h1>
@@ -35,212 +49,50 @@
   </div>
 </div>
 
-<!-- Seccion de tendencias -->
-<h2 class="text-white font-bold md:text-xl p-4">Tendencias</h2>
-<div class="relative flex items-center group">
-  <div
-    class="w-full h-full overflow-y-hidden overflow-x-scroll whitespace-nowrap relative"
-  >
-    <!-- Seccion de tendencias -->
-    <ng-container *ngFor="let td of trendingMoviesResults">
+<div class="md:ml-20">
+  <ng-container *ngFor="let seccion of secciones">
+    <h2 class="text-white font-bold md:text-xl p-4">{{ seccion.titulo }}</h2>
+    <div class="relative flex items-center group">
       <div
-        class="w-[160px] sm:w-[200px] md:w[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
-        [routerLink]="['/movie', td.id]"
+        class="w-full h-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide relative"
       >
-        <img
-          class="transform transition inline-block duration-500 hover:scale-110"
-          src="https://image.tmdb.org/t/p/original/{{ td.poster_path }}"
-          alt=""
-        />
-        <div>
-          <p class="absolute top-4 left-4 text-gray-300">
-            <svg
-              class="h-8 w-8 text-white-500"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" />
-              <path
-                d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7"
-              />
-            </svg>
-          </p>
-        </div>
+        <ng-container *ngFor="let pelicula of seccion.resultados">
+          <div
+            class="w-[250px] sm:w-[300px] md:w[350px] lg:w-[400px] inline-block cursor-pointer relative p-2"
+            [routerLink]="['/movie', pelicula.id]"
+          >
+            <img
+              *ngIf="pelicula.backdrop_path"
+              class="transform transition inline-block duration-500 hover:scale-105"
+              [src]="
+                'https://image.tmdb.org/t/p/original/' + pelicula.backdrop_path
+              "
+              alt=""
+              (error)="handleImageError()"
+            />
+            <div>
+              <p class="absolute top-4 left-4 text-gray-300">
+                <svg
+                  class="h-8 w-8 text-white-500"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" />
+                  <path
+                    d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7"
+                  />
+                </svg>
+              </p>
+            </div>
+          </div>
+        </ng-container>
       </div>
-    </ng-container>
-  </div>
-</div>
-
-<!-- Seccion de populares -->
-<h2 class="text-white font-bold md:text-xl p-4">Populares</h2>
-<div class="relative flex items-center group">
-  <div
-    class="w-full h-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide relative"
-  >
-    <!-- Seccion de populares -->
-    <ng-container *ngFor="let toprated of topratedMoviesResults">
-      <div
-        class="w-[160px] sm:w-[200px] md:w[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
-        [routerLink]="['/movie', toprated.id]"
-      >
-        <img
-          class="transform transition inline-block duration-500 hover:scale-105"
-          src="https://image.tmdb.org/t/p/original/{{ toprated.poster_path }}"
-          alt=""
-        />
-        <div>
-          <p class="absolute top-4 left-4 text-gray-300">
-            <svg
-              class="h-8 w-8 text-white-500"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" />
-              <path
-                d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7"
-              />
-            </svg>
-          </p>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-</div>
-
-<!-- Seccion de peliculas de accion -->
-<h2 class="text-white font-bold md:text-xl p-4">Accion</h2>
-<div class="relative flex items-center group">
-  <div
-    class="w-full h-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide relative"
-  >
-    <!-- Seccion de peliculas de accion -->
-    <ng-container *ngFor="let acc of actionMovieResults">
-      <div
-        class="w-[160px] sm:w-[200px] md:w[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
-        [routerLink]="['/movie', acc.id]"
-      >
-        <img
-          class="transform transition inline-block duration-500 hover:scale-105"
-          src="https://image.tmdb.org/t/p/original/{{ acc.poster_path }}"
-          alt=""
-        />
-        <div>
-          <p class="absolute top-4 left-4 text-gray-300">
-            <svg
-              class="h-8 w-8 text-white-500"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" />
-              <path
-                d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7"
-              />
-            </svg>
-          </p>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-</div>
-
-<!-- Seccion de peliculas de comedia -->
-<h2 class="text-white font-bold md:text-xl p-4">Comedia</h2>
-<div class="relative flex items-center group">
-  <div
-    class="w-full h-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide relative"
-  >
-    <!-- Seccion de peliculas de comedia -->
-    <ng-container *ngFor="let com of comedyMovieResults">
-      <div
-        class="w-[160px] sm:w-[200px] md:w[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
-        [routerLink]="['/movie', com.id]"
-      >
-        <img
-          class="transform transition inline-block duration-500 hover:scale-105"
-          src="https://image.tmdb.org/t/p/original/{{ com.poster_path }}"
-          alt=""
-        />
-        <div>
-          <p class="absolute top-4 left-4 text-gray-300">
-            <svg
-              class="h-8 w-8 text-white-500"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" />
-              <path
-                d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7"
-              />
-            </svg>
-          </p>
-        </div>
-      </div>
-    </ng-container>
-  </div>
-</div>
-
-<!-- Seccion de peliculas de ciencia ficcion -->
-<h2 class="text-white font-bold md:text-xl p-4">Ciencia Ficción</h2>
-<div class="relative flex items-center group">
-  <div
-    class="w-full h-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide relative"
-  >
-    <!-- Seccion de peliculas de ciencia ficcion -->
-    <ng-container *ngFor="let sc of sciencefictionMovieResults">
-      <div
-        class="w-[160px] sm:w-[200px] md:w[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
-        [routerLink]="['/movie', sc.id]"
-      >
-        <img
-          class="transform transition inline-block duration-500 hover:scale-105"
-          src="https://image.tmdb.org/t/p/original/{{ sc.poster_path }}"
-          alt=""
-        />
-        <div>
-          <p class="absolute top-4 left-4 text-gray-300">
-            <svg
-              class="h-8 w-8 text-white-500"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" />
-              <path
-                d="M12 20l-7 -7a4 4 0 0 1 6.5 -6a.9 .9 0 0 0 1 0a4 4 0 0 1 6.5 6l-7 7"
-              />
-            </svg>
-          </p>
-        </div>
-      </div>
-    </ng-container>
-  </div>
+    </div>
+  </ng-container>
 </div>

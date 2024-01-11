@@ -35,8 +35,8 @@
           <img
             class="h-full w-full object-contain object-center"
             [src]="
-              s.poster_path
-                ? 'https://image.tmdb.org/t/p/original/' + s.poster_path
+              s.backdrop_path
+                ? 'https://image.tmdb.org/t/p/original/' + s.backdrop_path
                 : './assets/images/no-image.jpg'
             "
             [routerLink]="['/movie', s.id]"
